@@ -1,0 +1,66 @@
+#importing libraries
+import numpy as np # linear algebra
+import pandas as pd
+import os
+for dirname, _, filenames in os.walk('/content/Dataset/Clean_Dataset.csv'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
+import matplotlib
+matplotlib.rcParams['figure.figsize']=(10,5)
+
+#file exploration
+#reading data
+df=pd.read_csv('/content/Dataset/Clean_Dataset.csv')
+
+df_out=pd.read_csv('/content/Dataset/Clean_Dataset.csv')
+
+df.head()
+
+df=df.drop('Unnamed: 0',axis=1)
+
+#data cleaning
+df_out=df_out.drop('Unnamed: 0',axis=1)
+
+df_out
+
+#exploratory data analysis(EDA)
+df.info()
+
+df.describe()
+
+df.shape
+
+df.columns
+
+df1=df.groupby(['flight','airline'],as_index=False).count()
+
+df1.airline.value_counts()
+
+df2=df.groupby(['flight','airline','class'],as_index=False).count()
+df2['class'].value_counts()
+
+#visualization
+sns.boxplot(data=df,x=df['airline'],y=df['price'])
+
+sns.boxplot(data=df,x=df['stops'],y=df['price'])
+
+sns.lineplot(data=df,x='duration',y='price',hue='class')
+
+df.columns
+
+sns.lineplot(data=df,x='days_left',y='price')
+
+sns.lineplot(data=df,x='days_left',y='price',hue='airline')
+
+
+#data aggregation
+df.groupby(['flight','source_city','destination_city','airline','class'],as_index=False).count().groupby(['source_city','destination_city'],as_index=False)['flight'].count()
+
+df.groupby(['airline','source_city','destination_city'],as_index=False)['price'].mean()
+
